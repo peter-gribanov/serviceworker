@@ -1,6 +1,17 @@
+
 console.log('start');
+
+
+this.onpush = function(event) {
+  console.log(event.data);
+  // From here we can write the data to IndexedDB, send it to any open
+  // windows, display a notification, etc.
+}
+
+
 var isPushEnabled = false;
 var useNotifications = false;
+
 if (!('serviceWorker' in navigator)) {
     console.warn('Service workers aren\'t supported in this browser.');
 } else {
@@ -13,7 +24,21 @@ if (!('serviceWorker' in navigator)) {
             console.log('Service worker active');
         }
 
-        initialiseState(reg);
+        req.subscribe().then(function (pushSubscription) {
+            console.log(pushSubscription.subscriptionId);
+            console.log(pushSubscription.endpoint);
+            // The push subscription details needed by the application
+            // server are now available, and can be sent to it using,
+            // for example, an XMLHttpRequest.
+        }).function(error) {
+            // During development it often helps to log errors to the
+            // console. In a production environment it might make sense to
+            // also report information about errors back to the
+            // application server.
+            console.log(error);
+        });
+
+//         initialiseState(reg);
     });
 }
 

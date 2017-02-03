@@ -1,5 +1,8 @@
 {
-  "manifest_version": 1,
-  "version": "0.1",
-  "name": "serviceworker"
+  manifest_version: 1,
+  version: "0.1",
+  name: "serviceworker",
+  start_url: "/",
+  display: "standalone",
+  gcm_sender_id: "241818759138",
 }

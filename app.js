@@ -49,9 +49,11 @@ function initialiseState(reg) {
                 // Enable any UI which subscribes / unsubscribes from
                 // push messages.
                 if (!subscription) {
-                    console.log('Not yet subscribed to Push')
+                    console.log('Not yet subscribed to Push');
                     // We aren't subscribed to push, so set UI
                     // to allow the user to enable push
+                    console.log(reg);
+                    console.log(reg.pushManager);
                     reg.pushManager.requestPermission()
                         .then(function (permission) {
                             console.log('New permission: '+permission);

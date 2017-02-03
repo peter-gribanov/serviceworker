@@ -5,16 +5,18 @@ if (!('serviceWorker' in navigator)) {
     console.warn('Service workers aren\'t supported in this browser.');
 } else {
     navigator.serviceWorker.register('/serviceworker/sw.js').then(function (reg) {
-        if(reg.installing) {
+        if (reg.installing) {
             console.log('Service worker installing');
         } else if(reg.waiting) {
             console.log('Service worker installed');
         } else if(reg.active) {
             console.log('Service worker active');
         }
-        //initialiseState(reg);
+
+        initialiseState(reg);
     });
 }
+
 // Once the service worker is registered set the initial state
 function initialiseState(reg) {
     // Are Notifications supported in the service worker?
@@ -24,6 +26,7 @@ function initialiseState(reg) {
     } else {
         useNotifications = true;
     }
+
     // Check the current Notification permission.
     // If its denied, it's a permanent block until the
     // user changes the permission
@@ -31,11 +34,13 @@ function initialiseState(reg) {
         console.log('The user has blocked notifications.');
         return;
     }
+
     // Check if push messaging is supported
     if (!('PushManager' in window)) {
         console.log('Push messaging isn\'t supported.');
         return;
     }
+
     // We need the service worker registration to check for a subscription
     navigator.serviceWorker.ready.then(function(reg) {
         // Do we already have a push message subscription?

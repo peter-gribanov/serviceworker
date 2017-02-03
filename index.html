@@ -9,7 +9,7 @@ var useNotifications = false;
 if (!('serviceWorker' in navigator)) {
     console.warn('Service workers aren\'t supported in this browser.');
 } else {
-    navigator.serviceWorker.register('sw.js').then(function (reg) {
+    navigator.serviceWorker.register('/serviceworker/sw.js').then(function (reg) {
         if(reg.installing) {
             console.log('Service worker installing');
         } else if(reg.waiting) {

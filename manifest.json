@@ -1,0 +1,5 @@
+{
+  "manifest_version": 1,
+  "version": "0.1",
+  "name": "serviceworker"
+}

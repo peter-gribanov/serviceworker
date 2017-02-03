@@ -1,2 +1,1 @@
-# serviceworker.github.io
-Test Service Worker
+# Test Service Worker

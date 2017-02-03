@@ -30,7 +30,7 @@ if (!('serviceWorker' in navigator)) {
             // The push subscription details needed by the application
             // server are now available, and can be sent to it using,
             // for example, an XMLHttpRequest.
-        }).function(error) {
+        }).catch(function(error) {
             // During development it often helps to log errors to the
             // console. In a production environment it might make sense to
             // also report information about errors back to the

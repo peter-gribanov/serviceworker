@@ -24,7 +24,7 @@ if (!('serviceWorker' in navigator)) {
             console.log('Service worker active');
         }
 
-        reg.pushManager.subscribe().then(function (pushSubscription) {
+        reg.pushManager.subscribe({userVisibleOnly: true}).then(function (pushSubscription) {
             console.log(pushSubscription.subscriptionId);
             console.log(pushSubscription.endpoint);
             // The push subscription details needed by the application

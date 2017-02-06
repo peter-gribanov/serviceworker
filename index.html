@@ -4,47 +4,44 @@
 -->
 <script src="firebase.js"></script>
 <script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyBc3Ms4Cf7VX-H4oWvil1AofLB5ODFW-0Y",
-//    authDomain: "karusel-1251.firebaseapp.com",
-//    databaseURL: "https://karusel-1251.firebaseio.com",
-//    storageBucket: "karusel-1251.appspot.com",
-    messagingSenderId: "241818759138"
-  };
-  firebase.initializeApp(config);
-  var messaging = firebase.messaging();
+    var config = {
+        apiKey: "AIzaSyBc3Ms4Cf7VX-H4oWvil1AofLB5ODFW-0Y",
+        messagingSenderId: "241818759138"
+    };
+    firebase.initializeApp(config);
 
-  messaging.requestPermission()
-    .then(function() {
-      console.log('Notification permission granted.');
-      // TODO(developer): Retrieve an Instance ID token for use with FCM.
-      // ...
-    })
-    .catch(function(err) {
-      console.log('Unable to get permission to notify.', err);
-    });
+    var messaging = firebase.messaging();
 
-  // Get Instance ID token. Initially this makes a network call, once retrieved
-  // subsequent calls to getToken will return from cache.
-  messaging.getToken()
-    .then(function(currentToken) {
-      console.log(currentToken);
-      if (currentToken) {
-//        sendTokenToServer(currentToken);
-//        updateUIForPushEnabled(currentToken);
-      } else {
-        // Show permission request.
-        console.log('No Instance ID token available. Request permission to generate one.');
-        // Show permission UI.
-//        updateUIForPushPermissionRequired();
-//        setTokenSentToServer(false);
-      }
-    })
-    .catch(function(err) {
-      console.log('An error occurred while retrieving token. ', err);
-//      showToken('Error retrieving Instance ID token. ', err);
-//      setTokenSentToServer(false);
-    });
+    messaging.requestPermission()
+        .then(function() {
+            console.log('Notification permission granted.');
 
+            // Get Instance ID token. Initially this makes a network call, once retrieved
+            // subsequent calls to getToken will return from cache.
+            messaging.getToken()
+                .then(function(currentToken) {
+                    console.log(currentToken);
+                    document.getElementById('token').innerText = currentToken;
+
+                    if (currentToken) {
+//                        sendTokenToServer(currentToken);
+//                        updateUIForPushEnabled(currentToken);
+                    } else {
+                        // Show permission request.
+                        console.log('No Instance ID token available. Request permission to generate one.');
+                        // Show permission UI.
+//                        updateUIForPushPermissionRequired();
+//                        setTokenSentToServer(false);
+                    }
+                })
+                .catch(function(err) {
+                    console.log('An error occurred while retrieving token. ', err);
+//                    showToken('Error retrieving Instance ID token. ', err);
+//                    setTokenSentToServer(false);
+                });
+        })
+        .catch(function(err) {
+            console.log('Unable to get permission to notify.', err);
+        });
 </script>
+<div id="token"></div>

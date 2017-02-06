@@ -22,9 +22,9 @@ self.addEventListener('notificationclick', function(event) {
     event.waitUntil(clients.matchAll({
         type: 'window'
     }).then(function(clientList) {
+        console.log(clientList);
         for (var i = 0; i < clientList.length; i++) {
             var client = clientList[i];
-            console.log(client);
             if (client.url == target && 'focus' in client) {
                 return client.focus();
             }

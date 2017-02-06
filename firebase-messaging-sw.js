@@ -19,6 +19,6 @@ const messaging = firebase.messaging();
 // - the user clicks on an app notification created by a sevice worker
 //   `messaging.setBackgroundMessageHandler` handler.
 messaging.onMessage(function(payload) {
-    console.log("Message received. ", payload);
+    // console.log("Message received. ", payload);
     // ...
 });

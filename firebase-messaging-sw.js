@@ -11,7 +11,13 @@ const messaging = firebase.messaging();
 messaging.setBackgroundMessageHandler(function(payload) {
     console.log(payload.data);
 
-    return self.registration.showNotification(payload.data.title, payload.data);
+    payload.data.data = payload.data;
+
+    var notification = self.registration.showNotification(payload.data.title, payload.data);
+
+    console.log(notification);
+
+    return notification;
 });
 
 self.addEventListener('notificationclick', function(event) {

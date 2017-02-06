@@ -1,11 +1,7 @@
-<!--
-<link rel="manifest" href="manifest.json">
-<script src="app.js"></script>
--->
 <script src="firebase.js"></script>
 <script>
     var config = {
-        apiKey: "AIzaSyBc3Ms4Cf7VX-H4oWvil1AofLB5ODFW-0Y",
+//        apiKey: "AIzaSyBc3Ms4Cf7VX-H4oWvil1AofLB5ODFW-0Y",
         messagingSenderId: "241818759138"
     };
     firebase.initializeApp(config);
@@ -14,8 +10,6 @@
 
     messaging.requestPermission()
         .then(function() {
-            console.log('Notification permission granted.');
-
             // Get Instance ID token. Initially this makes a network call, once retrieved
             // subsequent calls to getToken will return from cache.
             messaging.getToken()
@@ -28,20 +22,20 @@
 //                        updateUIForPushEnabled(currentToken);
                     } else {
                         // Show permission request.
-                        console.log('No Instance ID token available. Request permission to generate one.');
+                        console.warn('No Instance ID token available. Request permission to generate one.');
                         // Show permission UI.
 //                        updateUIForPushPermissionRequired();
 //                        setTokenSentToServer(false);
                     }
                 })
                 .catch(function(err) {
-                    console.log('An error occurred while retrieving token. ', err);
+                    console.warn('An error occurred while retrieving token. ', err);
 //                    showToken('Error retrieving Instance ID token. ', err);
 //                    setTokenSentToServer(false);
                 });
         })
         .catch(function(err) {
-            console.log('Unable to get permission to notify.', err);
+            console.warn('Unable to get permission to notify.', err);
         });
 </script>
 <div id="token"></div>

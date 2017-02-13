@@ -51,8 +51,12 @@
             getToken();
         }
 
-        // get permission on subscribe
-        subscribe.addEventListener('click', getToken);
+        // get permission on subscribe only once
+        subscribe.addEventListener('click', function() {
+            if (Notification.permission !== 'granted') {
+                getToken();
+            }
+        });
     } else {
         console.warn('This browser does not support desktop notification.');
     }

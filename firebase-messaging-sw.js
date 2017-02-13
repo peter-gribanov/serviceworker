@@ -16,7 +16,7 @@ messaging.setBackgroundMessageHandler(function(payload) {
         if (time < now) { // expired
             return null;
         }
-        var diff = Math.round((now.getTime() - time.getTime()) / 1000);
+        var diff = Math.round((time.getTime() - now.getTime()) / 1000);
         payload.data.body = 'Начало через ' + diff + ' минут, в ' + time.getHours() + ':' + time.getMinutes();
     }
 

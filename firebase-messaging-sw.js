@@ -9,7 +9,8 @@ const messaging = firebase.messaging();
 
 // Customize notification handler
 messaging.setBackgroundMessageHandler(function(payload) {
-    if (typeof payload.data.time !== 'undefined') {
+    console.log(payload);
+    if (typeof payload.data.time != 'undefined') {
         var time = new Date(payload.data.time * 1000);
         var now = new Date();
         if (time < now) { // expired

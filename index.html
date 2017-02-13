@@ -6,7 +6,7 @@
 
     var messaging = firebase.messaging();
 
-    document.getElementById('subscribe').onclick = function(){
+    document.getElementById('subscribe').addEventListener('click', function(){
         messaging.requestPermission()
             .then(function() {
                 // Get Instance ID token. Initially this makes a network call, once retrieved
@@ -36,7 +36,7 @@
             .catch(function(err) {
                 console.warn('Unable to get permission to notify.', err);
             });
-        }
+        });
 </script>
 <div id="token"></div>
 <button type="button" id="subscribe">Subscribe</button>

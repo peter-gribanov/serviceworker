@@ -9,7 +9,16 @@ const messaging = firebase.messaging();
 
 // Customize notification handler
 messaging.setBackgroundMessageHandler(function(payload) {
-    console.log(payload);
+    if (typeof payload.data.time !== 'undefined') {
+        var time = new Date(payload.data.time * 1000);
+        var now = new Date();
+        if (time < now) { // expired
+            return null;
+        }
+        var diff = Math.round((now.getTime() - time.getTime()) / 1000);
+        payload.data.body = 'Начало через ' + diff + ' минут, в ' + time.getHours() + ':' + time.getMinutes();
+    }
+
     payload.data.data = payload.data;
 
     return self.registration.showNotification(payload.data.title, payload.data);

@@ -7,37 +7,53 @@
         messagingSenderId: "448358493027"
     });
 
-    var messaging = firebase.messaging();
+    if ('Notification' in window) {
+        var messaging = firebase.messaging();
+        var token = document.getElementById('token');
+        var subscribe = document.getElementById('subscribe');
 
-    document.getElementById('subscribe').addEventListener('click', function(){
-        messaging.requestPermission()
-            .then(function() {
-                // Get Instance ID token. Initially this makes a network call, once retrieved
-                // subsequent calls to getToken will return from cache.
-                messaging.getToken()
-                    .then(function(currentToken) {
-                        console.log(currentToken);
-                        document.getElementById('token').innerText = currentToken;
+        var getToken = function() {
+            messaging.requestPermission()
+                .then(function() {
+                    // Get Instance ID token. Initially this makes a network call, once retrieved
+                    // subsequent calls to getToken will return from cache.
+                    messaging.getToken()
+                        .then(function(currentToken) {
+                            console.log(currentToken);
+                            token.innerText = currentToken;
 
-                        if (currentToken) {
-//                            sendTokenToServer(currentToken);
-//                            updateUIForPushEnabled(currentToken);
-                        } else {
-                            // Show permission request.
-                            console.warn('No Instance ID token available. Request permission to generate one.');
-                            // Show permission UI.
-//                            updateUIForPushPermissionRequired();
+                            if (currentToken) {
+//                                sendTokenToServer(currentToken);
+//                                updateUIForPushEnabled(currentToken);
+                            } else {
+                                // Show permission request.
+                                console.warn('No Instance ID token available. Request permission to generate one.');
+                                // Show permission UI.
+//                                updateUIForPushPermissionRequired();
+//                                setTokenSentToServer(false);
+                                subscribe.setAttribute('disabled', 'disabled');
+                            }
+                        })
+                        .catch(function(err) {
+                            console.warn('An error occurred while retrieving token. ', err);
+//                            showToken('Error retrieving Instance ID token. ', err);
 //                            setTokenSentToServer(false);
-                        }
-                    })
-                    .catch(function(err) {
-                        console.warn('An error occurred while retrieving token. ', err);
-//                        showToken('Error retrieving Instance ID token. ', err);
-//                        setTokenSentToServer(false);
-                    });
-            })
-            .catch(function(err) {
-                console.warn('Unable to get permission to notify.', err);
-            });
-        });
+                            subscribe.setAttribute('disabled', 'disabled');
+                        });
+                })
+                .catch(function(err) {
+                    console.warn('Unable to get permission to notify.', err);
+                });
+        };
+
+        // already granted
+        if (Notification.permission === 'granted') {
+            getToken();
+        }
+
+        // get permission on subscribe
+        subscribe.addEventListener('click', getToken);
+    } else {
+        console.warn('This browser does not support desktop notification.');
+    }
 </script>

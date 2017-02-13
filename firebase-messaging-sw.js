@@ -10,10 +10,9 @@ const messaging = firebase.messaging();
 // Customize notification handler
 messaging.setBackgroundMessageHandler(function(payload) {
     console.log(payload);
-    payload.notification.body = payload.data.time;
-    payload.notification.data = payload.data;
+    payload.data.data = payload.data;
 
-    return self.registration.showNotification(payload.notification.title, payload.notification);
+    return self.registration.showNotification(payload.data.title, payload.data);
 });
 
 self.addEventListener('notificationclick', function(event) {

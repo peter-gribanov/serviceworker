@@ -9,7 +9,6 @@ const messaging = firebase.messaging();
 
 // Customize notification handler
 messaging.setBackgroundMessageHandler(function(payload) {
-    console.log(payload);
     if (typeof payload.data.time != 'undefined') {
         var time = new Date(payload.data.time * 1000);
         var now = new Date();
@@ -17,7 +16,8 @@ messaging.setBackgroundMessageHandler(function(payload) {
             return null;
         }
         var diff = Math.round((time.getTime() - now.getTime()) / 1000);
-        payload.data.body = 'Начало через ' + diff + ' минут, в ' + time.getHours() + ':' + time.getMinutes();
+
+        payload.data.body = 'Начало через ' + Math.round(diff / 60) + ' минут, в ' + time.getHours() + ':' + time.getMinutes();
     }
 
     payload.data.data = payload.data;

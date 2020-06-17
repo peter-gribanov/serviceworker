@@ -274,12 +274,13 @@ function updateUIForPushPermissionRequired() {
 }
 
 function showError(error, error_data) {
+    alert.show();
+
     if (typeof error_data !== "undefined") {
+        alert_message.html(error + '<br><pre>' + JSON.stringify(error_data) + '</pre>');
         console.error(error, error_data);
     } else {
+        alert_message.html(error);
         console.error(error);
     }
-
-    alert.show();
-    alert_message.html(error);
 }
